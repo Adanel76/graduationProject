@@ -58,3 +58,26 @@
 CREATE DATABASE tourism_db;
 
 -- Создание таблиц (скрипты находятся в backend/database/schema.sql)
+
+# Переход в папку backend
+cd backend
+
+# Создание виртуального окружения
+python -m venv venv
+
+# Активация виртуального окружения
+# Windows:
+venv\Scripts\activate
+# Linux/Mac:
+source venv/bin/activate
+
+# Установка зависимостей
+pip install -r requirements.txt
+
+# Создание файла .env с настройками
+cp .env.example .env
+# Отредактируйте .env файл с вашими настройками
+
+# Запуск сервера
+uvicorn app.main:app --reload
+
