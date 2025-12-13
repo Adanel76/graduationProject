@@ -51,7 +51,7 @@
 - PostgreSQL 12+
 - Git
 
-### Настройка базы данных:
+### Схема базы данных:
 <img width="662" height="391" alt="image" src="https://github.com/user-attachments/assets/c915efaf-0783-4846-abc7-c84d2ba30941" />
 <img width="811" height="249" alt="image" src="https://github.com/user-attachments/assets/f53f3b1b-4369-4dab-b936-561a8fdc9318" />
 <img width="245" height="455" alt="image" src="https://github.com/user-attachments/assets/0d7eb144-6c03-4d83-b9c1-3ec1e7b9e7a2" />
@@ -59,13 +59,6 @@
 <img width="225" height="611" alt="image" src="https://github.com/user-attachments/assets/2852ebdf-b53f-4525-9ce3-fb6699b5a54e" />
 <img width="1919" height="1018" alt="image" src="https://github.com/user-attachments/assets/154b8c54-5366-4a64-9c92-b45b2be8192a" />
 
-
-```sql
--- Создание базы данных
-CREATE DATABASE tourism_db;
-
--- Создание таблиц (скрипты находятся в backend/database/schema.sql)
-```
 ### Запуск Backend:
 ```
 # В первой консоли переход в папку backend
