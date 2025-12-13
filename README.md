@@ -51,15 +51,17 @@
 - PostgreSQL 12+
 - Git
 
-### 1. Настройка базы данных:
+### Настройка базы данных:
 
 ```sql
 -- Создание базы данных
 CREATE DATABASE tourism_db;
 
 -- Создание таблиц (скрипты находятся в backend/database/schema.sql)
-
-# Переход в папку backend
+```
+### Запуск Backend:
+```
+# В первой консоли переход в папку backend
 cd backend
 
 # Создание виртуального окружения
@@ -68,16 +70,22 @@ python -m venv venv
 # Активация виртуального окружения
 # Windows:
 venv\Scripts\activate
-# Linux/Mac:
-source venv/bin/activate
 
 # Установка зависимостей
 pip install -r requirements.txt
 
-# Создание файла .env с настройками
-cp .env.example .env
-# Отредактируйте .env файл с вашими настройками
-
 # Запуск сервера
 uvicorn app.main:app --reload
+```
+### Запуск Frontend:
+```
+# Во второй коносоли переход в папку frontend
+cd frontend
+
+# Установка зависимостей
+npm install
+
+# Запуск приложения
+npm start
+```
 
