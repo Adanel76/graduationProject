@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { tourismAPI } from '../services/api';
-import { getLoginHistory, getRelativeTime } from '../utils/loginHistory';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -116,27 +115,6 @@ const AdminDashboard = () => {
         }}>
           <h2>Добро пожаловать, {user.first_name} {user.last_name}!</h2>
           <p>Роль: Администратор</p>
-          
-          {/* Информация о последнем входе */}
-          {getLoginHistory().length > 0 && (
-            <div style={{
-              marginTop: '1rem',
-              padding: '1rem',
-              backgroundColor: '#f8f9fa',
-              borderRadius: '5px',
-              border: '1px solid #eee'
-            }}>
-              <h4 style={{ margin: '0 0 0.5rem 0', color: '#666' }}>Последний вход:</h4>
-              <p style={{ margin: '0.25rem 0', fontSize: '0.9rem' }}>
-                <strong>{getLoginHistory()[0].name || getLoginHistory()[0].email}</strong> - {getRelativeTime(getLoginHistory()[0].timestamp)}
-              </p>
-              {getLoginHistory().length > 1 && (
-                <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#7f8c8d' }}>
-                  Всего входов: {getLoginHistory().length}
-                </p>
-              )}
-            </div>
-          )}
         </div>
       )}
 
@@ -213,7 +191,7 @@ const AdminDashboard = () => {
         }}>
           <h2>Активность за последние 30 дней</h2>
           
-          {/* График регистрации */}
+          {/* График регистраций */}
           <div style={{ marginBottom: '2rem' }}>
             <h3>Регистрации пользователей</h3>
             <div style={{
@@ -302,35 +280,28 @@ const AdminDashboard = () => {
       )}
 
       {/* Быстрые действия */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '1rem',
-        marginBottom: '2rem',
-      }}>
         <div style={{
-          backgroundColor: 'white',
-          borderRadius: '10px',
-          padding: '2rem',
-          boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
+            backgroundColor: 'white',
+            borderRadius: '10px',
+            padding: '2rem',
+            boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
         }}>
-          <h2>Экспорт отчетов</h2>
-          <button 
+        <h2>Экспорт отчетов</h2>
+        <button 
             onClick={() => navigate('/admin/reports')}
             style={{
-              backgroundColor: '#9b59b6',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              marginRight: '1rem',
+            backgroundColor: '#9b59b6',
+            color: 'white',
+            border: 'none',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            marginRight: '1rem',
             }}
-          >
+        >
             Экспорт данных
-          </button>
+        </button>
         </div>
-      </div>
 
       <div style={{
         display: 'grid',

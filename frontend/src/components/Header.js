@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useFavorites } from './FavoritesContext';
+import { useFavorites } from './FavoritesContext'; // Добавим
 
 const Header = () => {
   const navigate = useNavigate();
-  const { favoritesCount } = useFavorites();
+  const { favoritesCount } = useFavorites(); // Добавим
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
-  // Функция для проверки статуса авторизации
   const checkAuthStatus = () => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('userRole');
@@ -16,45 +15,15 @@ const Header = () => {
     setUserRole(role);
   };
 
-  // Проверяем статус при монтировании компонента
   useEffect(() => {
     checkAuthStatus();
-    
-    // Слушаем события изменения storage для обновления состояния
-    const handleStorageChange = (e) => {
-      if (e.key === 'token' || e.key === 'userRole') {
-        checkAuthStatus();
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Слушаем кастомное событие для обновления состояния
-    const handleAuthChange = () => {
-      checkAuthStatus();
-    };
-
-    window.addEventListener('authChange', handleAuthChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('authChange', handleAuthChange);
-    };
   }, []);
-
-  // Функция для обновления состояния авторизации из других компонентов
-  const updateAuthStatus = () => {
-    checkAuthStatus();
-    // Триггерим кастомное событие для других вкладок
-    window.dispatchEvent(new Event('authChange'));
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     setIsLoggedIn(false);
     setUserRole(null);
-    updateAuthStatus();
     navigate('/login');
   };
 

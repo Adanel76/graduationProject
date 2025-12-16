@@ -214,16 +214,6 @@ def send_booking_confirmation_email(email: str, booking_data: dict):
                     <p style="margin-top: 10px;">Наш менеджер свяжется с вами в ближайшее время для подтверждения бронирования.</p>
                 </div>
                 
-                <div style="background-color: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ffc107;">
-                    <h3 style="margin-top: 0; color: #856404;">📋 Что дальше?</h3>
-                    <ul style="padding-left: 20px; color: #856404;">
-                        <li style="margin-bottom: 8px;">Наши менеджеры свяжутся с вами в течение 24 часов</li>
-                        <li style="margin-bottom: 8px;">Вы получите детальную программу тура</li>
-                        <li style="margin-bottom: 8px;">Будет отправлена информация о документах для поездки</li>
-                        <li>За неделю до выезда вы получите напоминание и финальные инструкции</li>
-                    </ul>
-                </div>
-                
                 <div style="text-align: center; margin: 30px 0;">
                     <a href="http://localhost:3000/profile" style="background-color: #3498db; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
                         Посмотреть бронирование
@@ -265,7 +255,6 @@ def send_booking_confirmation_email(email: str, booking_data: dict):
     except Exception as e:
         print(f"Ошибка отправки email подтверждения бронирования: {e}")
         raise Exception(f"Не удалось отправить email подтверждения бронирования: {str(e)}")
-
 
 def send_booking_status_update_email(email: str, booking_data: dict):
     """Отправка email с обновлением статуса бронирования"""

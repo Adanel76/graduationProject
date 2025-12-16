@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { tourismAPI } from '../services/api';
-import { addLoginHistory } from '../utils/loginHistory';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,8 +9,6 @@ const Login = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -40,26 +37,13 @@ const Login = () => {
         const userResponse = await tourismAPI.getCurrentUser();
         const user = userResponse.data;
         localStorage.setItem('userRole', user.role);
-        
-        // Добавляем запись в историю входов
-        addLoginHistory(user);
-        
       } catch (userError) {
         // Если не получили данные пользователя, ставим роль по умолчанию
         localStorage.setItem('userRole', 'client');
-        // Добавляем запись с базовой информацией
-        addLoginHistory({
-          email: formData.email,
-          first_name: 'Пользователь',
-          last_name: ''
-        });
       }
 
-      // Триггерим событие обновления авторизации
-      window.dispatchEvent(new Event('authChange'));
-      
-      // Перенаправляем в профиль
-      navigate('/profile');
+      // Перенаправляем в профиль без alert
+      window.location.href = '/profile';
       
     } catch (error) {
       if (error.code === 'ERR_NETWORK') {

@@ -1,35 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useFavorites } from './FavoritesContext';
+import { useFavorites } from '../components/FavoritesContext';
 
 const TourCard = ({ tour }) => {
-  const { isFavorite, addToFavorites, removeFromFavorites, favoritesCount, maxFavorites } = useFavorites();
+  const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
   
-  // Функция для форматирования даты
+  // Добавляем функцию форматирования даты
   const formatDate = (dateString) => {
-    if (!dateString) return 'Дата не указана';
     return new Date(dateString).toLocaleDateString('ru-RU');
-  };
-
-  // Функция для форматирования превью программы
-  const formatProgramPreview = (program) => {
-    if (!program) return '';
-    // Берем первые 100 символов программы
-    return program.substring(0, 100) + (program.length > 100 ? '...' : '');
   };
 
   const toggleFavorite = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
     if (isFavorite(tour.id)) {
       removeFromFavorites(tour.id);
     } else {
-      // Проверяем лимит перед добавлением
-      if (favoritesCount >= maxFavorites) {
-        alert(`Максимальное количество избранных туров: ${maxFavorites}`);
-        return;
-      }
       addToFavorites(tour);
     }
   };
@@ -51,17 +37,15 @@ const TourCard = ({ tour }) => {
     return countryImages[country] || countryImages['default'];
   };
 
-  // Проверки на существование данных
-  const tourTitle = tour.title || 'Без названия';
-  const tourDescription = tour.description || 'Описание отсутствует';
-  const tourCity = tour.city || 'Город не указан';
-  const tourCountry = tour.country || 'Страна не указана';
-  const tourDuration = tour.duration || 0;
-  const tourPrice = tour.price || 0;
-  const tourStartDate = tour.start_date;
+  // Функция для форматирования превью программы
+  const formatProgramPreview = (program) => {
+    if (!program) return '';
+    // Берем первые 100 символов программы
+    return program.substring(0, 100) + (program.length > 100 ? '...' : '');
+  };
 
   // Определяем источник изображения
-  const imageSrc = tour.image_data || getCountryImage(tourCountry);
+  const imageSrc = tour.image_data || getCountryImage(tour.country);
 
   return (
     <div 
@@ -98,24 +82,9 @@ const TourCard = ({ tour }) => {
           justifyContent: 'center',
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
           transition: 'all 0.2s',
-          // Добавляем визуальную индикацию при достижении лимита
-          ...(favoritesCount >= maxFavorites && !isFavorite(tour.id) ? {
-            opacity: 0.5,
-            cursor: 'not-allowed'
-          } : {})
         }}
-        disabled={favoritesCount >= maxFavorites && !isFavorite(tour.id)}
-        title={favoritesCount >= maxFavorites && !isFavorite(tour.id) ? 
-          `Достигнут лимит избранных (${maxFavorites})` : 
-          isFavorite(tour.id) ? 'Удалить из избранного' : 'Добавить в избранное'}
-        onMouseOver={(e) => {
-          if (!(favoritesCount >= maxFavorites && !isFavorite(tour.id))) {
-            e.target.style.transform = 'scale(1.1)';
-          }
-        }}
-        onMouseOut={(e) => {
-          e.target.style.transform = 'scale(1)';
-        }}
+        onMouseOver={(e) => e.target.style.transform = 'scale(1.1)'}
+        onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
       >
         {isFavorite(tour.id) ? '❤️' : '🤍'}
       </button>
@@ -129,7 +98,7 @@ const TourCard = ({ tour }) => {
       }}>
         <img 
           src={imageSrc} 
-          alt={tourTitle} 
+          alt={tour.title} 
           style={{
             width: '100%',
             height: '100%',
@@ -153,7 +122,7 @@ const TourCard = ({ tour }) => {
           fontWeight: '600',
           lineHeight: '1.3',
         }}>
-          {tourTitle}
+          {tour.title}
         </h3>
         
         <p style={{
@@ -163,7 +132,7 @@ const TourCard = ({ tour }) => {
           lineHeight: '1.5',
           flex: 1,
         }}>
-          {tourDescription.substring(0, 120)}...
+          {tour.description.substring(0, 120)}...
         </p>
         
         {/* Программа тура - кратко */}
@@ -193,15 +162,15 @@ const TourCard = ({ tour }) => {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span>📍</span>
-            <span>{tourCity}, {tourCountry}</span>
+            <span>{tour.city}, {tour.country}</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span>📅</span>
-            <span>{tourDuration} дней</span>
+            <span>{tour.duration} дней</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span>📆</span>
-            <span>{formatDate(tourStartDate)}</span>
+            <span>{formatDate(tour.start_date)}</span>
           </div>
         </div>
         
@@ -211,7 +180,7 @@ const TourCard = ({ tour }) => {
           color: '#e74c3c',
           marginBottom: '1.25rem',
         }}>
-          {tourPrice.toLocaleString('ru-RU')} ₽
+          {tour.price.toLocaleString('ru-RU')} ₽
         </div>
         
         <Link 

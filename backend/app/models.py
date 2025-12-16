@@ -23,6 +23,7 @@ class Tour(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255))
     description = Column(Text)
+    program = Column(Text)  # Добавили программу тура
     price = Column(DECIMAL(10, 2))
     duration = Column(Integer)
     start_date = Column(DATE)

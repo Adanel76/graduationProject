@@ -175,6 +175,32 @@ const TourDetailPage = () => {
             </div>
           </div>
           
+          {tour.program && (
+            <div style={{
+              backgroundColor: '#f8f9fa',
+              padding: '1.5rem',
+              borderRadius: '8px',
+              marginBottom: '2rem',
+            }}>
+              <h3 style={{ 
+                color: '#2c3e50', 
+                marginBottom: '1rem',
+                borderBottom: '2px solid #3498db',
+                paddingBottom: '0.5rem'
+              }}>
+                📋 Программа тура
+              </h3>
+              <div style={{
+                whiteSpace: 'pre-wrap',
+                lineHeight: '1.6',
+                fontSize: '1rem'
+              }}>
+                {tour.program}
+              </div>
+            </div>
+          )}
+
+
           <button 
             onClick={handleBookTour}
             style={styles.bookButton}
@@ -188,208 +214,13 @@ const TourDetailPage = () => {
                 tour={tour}
                 onBookingSuccess={() => {
                   setShowBookingForm(false);
+                  alert('Тур успешно забронирован!');
                 }}
               />
             </div>
           )}
         </div>
       </div>
-
-      {/* Проживание */}
-      {tour.accommodation && (
-        <div style={{
-          backgroundColor: '#f8f9fa',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          marginBottom: '1.5rem',
-          marginTop: '2rem',
-        }}>
-          <h3 style={{ 
-            color: '#2c3e50', 
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            🏨 Проживание
-          </h3>
-          <div style={{
-            whiteSpace: 'pre-wrap',
-            lineHeight: '1.6',
-            fontSize: '1rem'
-          }}>
-            {tour.accommodation}
-          </div>
-        </div>
-      )}
-
-      {/* Питание */}
-      {tour.meals && (
-        <div style={{
-          backgroundColor: '#f8f9fa',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          marginBottom: '1.5rem',
-        }}>
-          <h3 style={{ 
-            color: '#2c3e50', 
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            🍽️ Питание
-          </h3>
-          <div style={{
-            whiteSpace: 'pre-wrap',
-            lineHeight: '1.6',
-            fontSize: '1rem'
-          }}>
-            {tour.meals}
-          </div>
-        </div>
-      )}
-
-      {/* Развлечения и активности */}
-      {tour.activities && (
-        <div style={{
-          backgroundColor: '#f8f9fa',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          marginBottom: '1.5rem',
-        }}>
-          <h3 style={{ 
-            color: '#2c3e50', 
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            🎢 Развлечения и активности
-          </h3>
-          <div style={{
-            whiteSpace: 'pre-wrap',
-            lineHeight: '1.6',
-            fontSize: '1rem'
-          }}>
-            {tour.activities}
-          </div>
-        </div>
-      )}
-
-      {/* О курорте */}
-      {tour.resort_info && (
-        <div style={{
-          backgroundColor: '#f8f9fa',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          marginBottom: '1.5rem',
-        }}>
-          <h3 style={{ 
-            color: '#2c3e50', 
-            marginBottom: '1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            🏖️ О курорте
-          </h3>
-          <div style={{
-            whiteSpace: 'pre-wrap',
-            lineHeight: '1.6',
-            fontSize: '1rem'
-          }}>
-            {tour.resort_info}
-          </div>
-        </div>
-      )}
-
-      {/* Детальная программа по дням */}
-      {tour.program_details && (
-        <div style={{
-          backgroundColor: 'white',
-          padding: '1.5rem',
-          borderRadius: '8px',
-          marginBottom: '2rem',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        }}>
-          <h3 style={{ 
-            color: '#2c3e50', 
-            marginBottom: '1.5rem',
-            borderBottom: '2px solid #3498db',
-            paddingBottom: '0.5rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem'
-          }}>
-            📋 Детальная программа по дням
-          </h3>
-          
-          {(() => {
-            try {
-              const programDays = JSON.parse(tour.program_details);
-              return (
-                <div style={{
-                  display: 'grid',
-                  gap: '1.5rem',
-                }}>
-                  {programDays.map((day, index) => (
-                    <div key={index} style={{
-                      border: '1px solid #eee',
-                      borderRadius: '8px',
-                      padding: '1.5rem',
-                      backgroundColor: '#fafafa',
-                    }}>
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '1rem',
-                        marginBottom: '1rem',
-                      }}>
-                        <div style={{
-                          backgroundColor: '#3498db',
-                          color: 'white',
-                          width: '40px',
-                          height: '40px',
-                          borderRadius: '50%',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontWeight: 'bold',
-                          fontSize: '1.2rem',
-                        }}>
-                          {day.day}
-                        </div>
-                        <h4 style={{
-                          margin: 0,
-                          color: '#2c3e50',
-                          fontSize: '1.3rem',
-                        }}>
-                          {day.title}
-                        </h4>
-                      </div>
-                      <div style={{
-                        whiteSpace: 'pre-wrap',
-                        lineHeight: '1.6',
-                        fontSize: '1rem',
-                        color: '#555',
-                      }}>
-                        {day.description}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              );
-            } catch (e) {
-              return (
-                <div style={{ color: '#7f8c8d', fontStyle: 'italic' }}>
-                  Программа недоступна
-                </div>
-              );
-            }
-          })()}
-        </div>
-      )}
 
       {/* Отзывы */}
       <div style={{ marginTop: '3rem' }}>

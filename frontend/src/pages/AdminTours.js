@@ -11,11 +11,6 @@ const AdminTours = () => {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    accommodation: '',
-    meals: '',
-    activities: '',
-    resort_info: '',
-    program_details: '',
     price: '',
     duration: '',
     start_date: '',
@@ -83,7 +78,8 @@ const AdminTours = () => {
         ...formData,
         price: parseFloat(formData.price),
         duration: parseInt(formData.duration),
-        max_people: parseInt(formData.max_people)
+        max_people: parseInt(formData.max_people),
+        program: formData.program || '' // Добавим программу
       };
 
       // Убираем пустые поля изображения если они не нужны
@@ -104,11 +100,6 @@ const AdminTours = () => {
       setFormData({
         title: '',
         description: '',
-        accommodation: '',
-        meals: '',
-        activities: '',
-        resort_info: '',
-        program_details: '',
         price: '',
         duration: '',
         start_date: '',
@@ -134,11 +125,6 @@ const AdminTours = () => {
     setFormData({
       title: tour.title,
       description: tour.description,
-      accommodation: tour.accommodation || '',
-      meals: tour.meals || '',
-      activities: tour.activities || '',
-      resort_info: tour.resort_info || '',
-      program_details: tour.program_details || '',
       price: tour.price.toString(),
       duration: tour.duration.toString(),
       start_date: tour.start_date,
@@ -170,11 +156,6 @@ const AdminTours = () => {
     setFormData({
       title: '',
       description: '',
-      accommodation: '',
-      meals: '',
-      activities: '',
-      resort_info: '',
-      program_details: '',
       price: '',
       duration: '',
       start_date: '',
@@ -241,11 +222,6 @@ const AdminTours = () => {
               setFormData({
                 title: '',
                 description: '',
-                accommodation: '',
-                meals: '',
-                activities: '',
-                resort_info: '',
-                program_details: '',
                 price: '',
                 duration: '',
                 start_date: '',
@@ -477,14 +453,14 @@ const AdminTours = () => {
 
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Проживание:
+                Программа тура (подробное описание по дням):
               </label>
               <textarea
-                name="accommodation"
-                value={formData.accommodation || ''}
+                name="program"
+                value={formData.program}
                 onChange={handleInputChange}
-                rows="3"
-                placeholder="Описание отеля, класс отеля, удобства..."
+                rows="8"
+                placeholder="Укажите подробную программу тура по дням..."
                 style={{
                   width: '100%',
                   padding: '10px',
@@ -494,98 +470,6 @@ const AdminTours = () => {
                   resize: 'vertical',
                 }}
               />
-            </div>
-
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Питание:
-              </label>
-              <textarea
-                name="meals"
-                value={formData.meals || ''}
-                onChange={handleInputChange}
-                rows="3"
-                placeholder="Тип питания, рестораны, специальные диеты..."
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  border: '1px solid #ddd',
-                  borderRadius: '5px',
-                  fontSize: '1rem',
-                  resize: 'vertical',
-                }}
-              />
-            </div>
-
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Развлечения и активности:
-              </label>
-              <textarea
-                name="activities"
-                value={formData.activities || ''}
-                onChange={handleInputChange}
-                rows="4"
-                placeholder="Экскурсии, развлечения, спортивные активности..."
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  border: '1px solid #ddd',
-                  borderRadius: '5px',
-                  fontSize: '1rem',
-                  resize: 'vertical',
-                }}
-              />
-            </div>
-
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Информация о курорте:
-              </label>
-              <textarea
-                name="resort_info"
-                value={formData.resort_info || ''}
-                onChange={handleInputChange}
-                rows="4"
-                placeholder="Описание курорта, пляжи, инфраструктура, климат..."
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  border: '1px solid #ddd',
-                  borderRadius: '5px',
-                  fontSize: '1rem',
-                  resize: 'vertical',
-                }}
-              />
-            </div>
-
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
-                Детальная программа по дням (JSON):
-              </label>
-              <textarea
-                name="program_details"
-                value={formData.program_details || ''}
-                onChange={handleInputChange}
-                rows="6"
-                placeholder='[{"day": 1, "title": "Прибытие", "description": "Описание дня..."}, ...]'
-                style={{
-                  width: '100%',
-                  padding: '10px',
-                  border: '1px solid #ddd',
-                  borderRadius: '5px',
-                  fontSize: '1rem',
-                  resize: 'vertical',
-                  fontFamily: 'monospace'
-                }}
-              />
-              <div style={{ 
-                fontSize: '0.8rem', 
-                color: '#666', 
-                marginTop: '0.5rem' 
-              }}>
-                Формат: массив объектов с полями day, title, description
-              </div>
             </div>
             
             <div style={{ marginBottom: '1rem' }}>

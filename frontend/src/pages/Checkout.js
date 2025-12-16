@@ -84,14 +84,14 @@ const Checkout = () => {
   };
   
     const handleConfirmBooking = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
+    setLoading(true);
+    setError(null);
+    
+    try {
         // Создаем бронирование
         const bookingData = {
-          tour_id: tour.id,
-          people_count: peopleCount
+        tour_id: tour.id,
+        people_count: peopleCount
         };
         
         await tourismAPI.createBooking(bookingData);
@@ -99,16 +99,16 @@ const Checkout = () => {
         // Переходим к завершению
         setStep(3);
         
-        // Убираем alert, оставляем только переход на следующий шаг
+        // Показываем уведомление
+        alert('Бронирование успешно оформлено! Подробная информация отправлена на ваш email.');
         
-      } catch (error) {
+    } catch (error) {
         console.error('Ошибка бронирования:', error);
         setError('Ошибка при оформлении бронирования. Попробуйте позже.');
-      } finally {
+    } finally {
         setLoading(false);
-      }
+    }
     };
-
 
   
   // Проверяем данные ПОСЛЕ всех хуков
@@ -647,64 +647,30 @@ const Checkout = () => {
             Бронирование успешно оформлено!
           </h2>
           <p style={{ marginBottom: '2rem', fontSize: '1.1rem', color: '#666' }}>
-            Спасибо за бронирование! Подробная информация отправлена на ваш email.<br />
-            Наши менеджеры свяжутся с вами в ближайшее время.
+            Спасибо за бронирование! Наши менеджеры свяжутся с вами в ближайшее время.
           </p>
           
           <div style={{
             backgroundColor: '#f8f9fa',
-            padding: '2rem',
+            padding: '1.5rem',
             borderRadius: '8px',
             marginBottom: '2rem',
             textAlign: 'left',
-            maxWidth: '500px',
+            maxWidth: '400px',
             margin: '0 auto 2rem',
-            border: '1px solid #eee'
           }}>
-            <h3 style={{ 
-              margin: '0 0 1.5rem 0', 
-              textAlign: 'center',
-              color: '#2c3e50',
-              borderBottom: '2px solid #3498db',
-              paddingBottom: '0.5rem'
-            }}>Детали бронирования:</h3>
-            
-            <div style={{ 
-              display: 'grid', 
-              gap: '1rem',
-              marginBottom: '1.5rem'
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <strong>Тур:</strong>
-                <span>{tour.title}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <strong>Количество человек:</strong>
-                <span>{peopleCount}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <strong>Итоговая цена:</strong>
-                <span style={{ color: '#e74c3c', fontWeight: 'bold' }}>
-                  {priceInfo.finalPrice.toLocaleString('ru-RU')} ₽
-                </span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <strong>Статус:</strong>
-                <span style={{ color: '#f39c12' }}>Ожидает подтверждения</span>
-              </div>
+            <h3 style={{ margin: '0 0 1rem 0' }}>Детали бронирования:</h3>
+            <div style={{ marginBottom: '0.5rem' }}>
+              <strong>Тур:</strong> {tour.title}
             </div>
-            
-            <div style={{
-              backgroundColor: '#fff3cd',
-              border: '1px solid #ffeaa7',
-              borderRadius: '5px',
-              padding: '1rem',
-              fontSize: '0.9rem',
-              color: '#856404'
-            }}>
-              <strong>📧 Проверьте ваш email!</strong>
-              <br />
-              Подробная информация о бронировании отправлена на {userData.email}
+            <div style={{ marginBottom: '0.5rem' }}>
+              <strong>Количество человек:</strong> {peopleCount}
+            </div>
+            <div style={{ marginBottom: '0.5rem' }}>
+              <strong>Итоговая цена:</strong> {priceInfo.finalPrice.toLocaleString('ru-RU')} ₽
+            </div>
+            <div>
+              <strong>Статус:</strong> <span style={{ color: '#f39c12' }}>Ожидает подтверждения</span>
             </div>
           </div>
           
@@ -739,7 +705,6 @@ const Checkout = () => {
           </div>
         </div>
       )}
-
     </div>
   );
 };

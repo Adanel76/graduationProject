@@ -107,3 +107,29 @@ class PasswordResetConfirm(BaseModel):
     email: EmailStr
     code: str
     new_password: str
+
+# Tour schemas
+class TourBase(BaseModel):
+    title: str
+    description: str
+    program: Optional[str] = None  # Добавили программу
+    price: float
+    duration: int
+    start_date: date
+    end_date: date
+    country: str
+    city: str
+    max_people: int
+
+class TourCreate(TourBase):
+    image_base64: Optional[str] = None
+    image_type: Optional[str] = None
+
+class Tour(TourBase):
+    id: int
+    image_data: Optional[str] = None
+    image_type: Optional[str] = None
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True

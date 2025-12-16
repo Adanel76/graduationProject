@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { tourismAPI } from '../services/api';
-import { getLoginHistory, formatLoginDate, getRelativeTime, clearLoginHistory } from '../utils/loginHistory';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -16,14 +15,12 @@ const Profile = () => {
     phone: ''
   });
 
+  // Объявляем handleLogout в самом начале
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
-    // Триггерим событие обновления авторизации
-    window.dispatchEvent(new Event('authChange'));
     navigate('/login');
   };
-
 
   useEffect(() => {
     loadProfileData();
@@ -559,109 +556,6 @@ const Profile = () => {
                 )}
               </div>
             ))}
-          </div>
-        )}
-      </div>
-      
-      {/* История входов */}
-      <div style={{
-        backgroundColor: 'white',
-        borderRadius: '10px',
-        padding: '2rem',
-        boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
-        marginBottom: '2rem'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '1rem'
-        }}>
-          <h2 style={{ 
-            color: '#2c3e50',
-            borderBottom: '2px solid #3498db',
-            paddingBottom: '0.5rem'
-          }}>🕐 История входов</h2>
-          <button 
-            onClick={() => {
-              if (window.confirm('Вы уверены, что хотите очистить историю входов?')) {
-                clearLoginHistory();
-                // Перезагружаем страницу или обновляем состояние
-                window.location.reload();
-              }
-            }}
-            style={{
-              backgroundColor: '#e74c3c',
-              color: 'white',
-              border: 'none',
-              padding: '4px 12px',
-              borderRadius: '5px',
-              cursor: 'pointer',
-              fontSize: '0.8rem'
-            }}
-          >
-            Очистить
-          </button>
-        </div>
-        
-        {getLoginHistory().length === 0 ? (
-          <div style={{
-            textAlign: 'center',
-            padding: '2rem',
-            color: '#7f8c8d'
-          }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🕐</div>
-            <p>История входов пуста</p>
-          </div>
-        ) : (
-          <div style={{
-            display: 'grid',
-            gap: '0.75rem',
-          }}>
-            {getLoginHistory().slice(0, 5).map((login, index) => (
-              <div key={index} style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '0.75rem',
-                backgroundColor: '#f8f9fa',
-                borderRadius: '5px',
-                border: '1px solid #eee'
-              }}>
-                <div>
-                  <div style={{ 
-                    fontWeight: 'bold',
-                    color: '#2c3e50'
-                  }}>
-                    {login.name || login.email}
-                  </div>
-                  <div style={{ 
-                    fontSize: '0.85rem',
-                    color: '#7f8c8d'
-                  }}>
-                    {login.email}
-                  </div>
-                </div>
-                <div style={{ 
-                  textAlign: 'right',
-                  fontSize: '0.85rem',
-                  color: '#666'
-                }}>
-                  <div>{formatLoginDate(login.timestamp)}</div>
-                  <div>{getRelativeTime(login.timestamp)}</div>
-                </div>
-              </div>
-            ))}
-            {getLoginHistory().length > 5 && (
-              <div style={{
-                textAlign: 'center',
-                padding: '0.5rem',
-                color: '#7f8c8d',
-                fontSize: '0.9rem'
-              }}>
-                Показаны последние 5 входов из {getLoginHistory().length}
-              </div>
-            )}
           </div>
         )}
       </div>
