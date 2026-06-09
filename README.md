@@ -26,8 +26,6 @@
 
 **ML и данные:** pandas, scikit-learn, joblib, CSV/XLSX.
 
-**Тестирование:** Pytest, React Testing Library, GitHub Actions.
-
 ## Структура проекта
 
 ```text
