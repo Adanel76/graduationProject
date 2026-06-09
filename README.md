@@ -64,12 +64,6 @@ uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
 API будет доступно по адресу `http://localhost:8000`, документация Swagger:
 `http://localhost:8000/docs`.
 
-Для заполнения демонстрационными данными:
-
-```powershell
-python -m app.demo_seed
-```
-
 ### 3. Frontend
 
 В отдельном терминале:
