@@ -34,7 +34,6 @@ frontend/                React-приложение
 backend/storage/media/   изображения каталога
 backend/storage/ml_models/ локальные модели MetricBot
 scripts/                 резервное копирование и сценарии демонстрации
-.github/workflows/       автоматическая проверка проекта
 ```
 
 ## Локальный запуск
