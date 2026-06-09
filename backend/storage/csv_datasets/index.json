@@ -1,0 +1,18 @@
+[
+  {
+    "id": "c023207bad7447fcaf51648528f6af33",
+    "filename": "c023207bad7447fcaf51648528f6af33_analytics_bookings.csv",
+    "original_filename": "analytics_bookings.csv",
+    "dataset_type": "other",
+    "uploaded_by_user_id": 7,
+    "uploaded_by_name": "Админ Системный",
+    "size_bytes": 1242,
+    "rows_count": 11,
+    "columns_count": 1,
+    "columns": [
+      "ID;Пользователь;Тур;Количество человек;Статус;Сумма;Дата"
+    ],
+    "created_at": "2026-04-25T14:20:05.424540",
+    "issues": []
+  }
+]
